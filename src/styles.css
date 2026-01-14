@@ -5,7 +5,7 @@
 .bg-iraralay-map {
   background-color: #0e7490;
   /* Use Google Drive Thumbnail API for more reliable embedding */
-  background-image: url("https://drive.google.com/thumbnail?id=1tqQy-Guh4gNK7_Lpsg8b1e3xWu7JFqka&sz=w2560");
+  background-image: './indexBg.png';
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
