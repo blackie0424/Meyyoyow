@@ -12,10 +12,10 @@ import { NgOptimizedImage } from '@angular/common';
     <section class="relative h-[90vh] flex items-center justify-center overflow-hidden bg-teal-900">
       
       <!-- The Map (Loaded via CSS Class) -->
-      <div class="absolute inset-0 z-0 bg-iraralay-map opacity-90"></div>
+      <div class="absolute inset-0 z-0 bg-iraralay-map opacity-100"></div>
       
       <!-- Gradient Overlay -->
-      <div class="absolute inset-0 bg-gradient-to-t from-teal-900/80 via-transparent to-teal-900/40 z-0"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-900/20 to-teal-900/30 z-0"></div>
 
       <!-- Text Content -->
       <div class="relative z-10 container-custom text-center px-4 mt-12">
@@ -23,8 +23,9 @@ import { NgOptimizedImage } from '@angular/common';
           Meyyoyow 漫遊朗島<br/>
           <span class="text-teal-300">依循地圖，找回部落的脈動</span>
         </h1>
-        <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-100 mb-10 leading-relaxed font-light shadow-black drop-shadow-md bg-teal-900/40 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+        <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-100 mb-10 leading-relaxed font-light bg-teal-900/60 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-lg">
           從地圖左側的 <strong>Jyakmey</strong> 到右側的 <strong>Jimazisang</strong>，<br class="hidden md:block">
+          在這片土地上，<strong>每一塊石頭、每一條溪流都有屬於自己的名字</strong>。<br class="hidden md:block">
           跟隨黃色公路，深入 <strong>Ili no Iraralay</strong> (朗島部落) 的真實生活。
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
