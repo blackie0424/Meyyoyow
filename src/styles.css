@@ -1,4 +1,31 @@
+
 /* 
-  Styles are now defined in index.html > style type="text/tailwindcss" 
-  to support the CDN version of Tailwind CSS properly in this environment.
+  Iraralay Village Map - CSS Version 
 */
+.bg-iraralay-map {
+  background-color: #0e7490;
+  /* Use Google Drive Thumbnail API for more reliable embedding */
+  background-image: url("https://drive.google.com/thumbnail?id=1tqQy-Guh4gNK7_Lpsg8b1e3xWu7JFqka&sz=w2560");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Base styles */
+.page-section {
+  display: block;
+}
+
+.nav-link.active {
+  color: #0d9488; /* teal-600 */
+  font-weight: 700;
+}
+
+/* Hide scrollbar for category tabs */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
