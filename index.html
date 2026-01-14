@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <title>Meyyoyow 漫遊朗島 - 官方網站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Noto Sans TC', 'sans-serif'],
+          },
+          colors: {
+            teal: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              200: '#99f6e4',
+              300: '#5eead4',
+              400: '#2dd4bf',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+              800: '#115e59',
+              900: '#134e4a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Utilities */
+    .section-padding { padding-top: 4rem; padding-bottom: 4rem; }
+    @media (min-width: 1024px) { .section-padding { padding-top: 6rem; padding-bottom: 6rem; } }
+    
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    .fade-in { animation: fadeIn 0.5s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Fix for anchor offset due to fixed header */
+    section { scroll-margin-top: 4rem; }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "rxjs": "https://esm.sh/rxjs@^7.8.2?conditions=es2015",
+    "rxjs/operators": "https://esm.sh/rxjs@^7.8.2/operators?conditions=es2015",
+    "rxjs/ajax": "https://esm.sh/rxjs@^7.8.2/ajax?conditions=es2015",
+    "rxjs/webSocket": "https://esm.sh/rxjs@^7.8.2/webSocket?conditions=es2015",
+    "rxjs/testing": "https://esm.sh/rxjs@^7.8.2/testing?conditions=es2015",
+    "rxjs/fetch": "https://esm.sh/rxjs@^7.8.2/fetch?conditions=es2015",
+    "@angular/platform-browser": "https://esm.sh/@angular/platform-browser@^21.0.8?external=rxjs",
+    "@angular/core": "https://esm.sh/@angular/core@^21.0.8?external=rxjs",
+    "@angular/router": "https://esm.sh/@angular/router@^21.0.8?external=rxjs",
+    "@angular/common/http": "https://esm.sh/@angular/common@^21.0.8/http?external=rxjs",
+    "@angular/forms": "https://esm.sh/@angular/forms@^21.0.8?external=rxjs",
+    "@angular/common": "https://esm.sh/@angular/common@^21.0.8?external=rxjs"
+  }
+}
+</script>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+  <!-- Navigation -->
+  <header class="bg-white/90 backdrop-blur-md fixed w-full z-50 shadow-sm border-b border-gray-100 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <a href="#home" class="flex items-center group">
+          <span class="text-2xl font-bold text-teal-700 tracking-tight group-hover:text-teal-600 transition">Meyyoyow</span>
+          <span class="ml-2 text-sm text-gray-500 font-medium hidden sm:block">｜漫遊朗島</span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="#home" class="text-gray-600 hover:text-teal-600 font-medium transition-colors">首頁</a>
+          <a href="#about" class="text-gray-600 hover:text-teal-600 font-medium transition-colors">關於我們</a>
+          <a href="#services" class="text-gray-600 hover:text-teal-600 font-medium transition-colors">體驗行程</a>
+          <a href="#pricing" class="text-gray-600 hover:text-teal-600 font-medium transition-colors">費用方案</a>
+          <a href="#gallery" class="text-gray-600 hover:text-teal-600 font-medium transition-colors">影像紀實</a>
+          <a href="#contact" class="px-4 py-2 rounded-md bg-teal-600 text-white hover:bg-teal-700 transition-colors shadow-sm">立即預約</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button onclick="toggleMenu()" class="text-gray-500 hover:text-gray-700 focus:outline-none p-2">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="#home" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-700 hover:bg-teal-50">首頁</a>
+        <a href="#about" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-700 hover:bg-teal-50">關於我們</a>
+        <a href="#services" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-700 hover:bg-teal-50">體驗行程</a>
+        <a href="#pricing" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-700 hover:bg-teal-50">費用方案</a>
+        <a href="#gallery" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-700 hover:bg-teal-50">影像紀實</a>
+        <a href="#contact" onclick="toggleMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-teal-600 font-bold bg-teal-50">立即預約</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-16">
+    
+    <!-- HOME SECTION -->
+    <section id="home" class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img src="https://picsum.photos/1920/1080?random=1" alt="蘭嶼朗島風景" class="object-cover w-full h-full brightness-50">
+      </div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg tracking-tight leading-tight">
+          Meyyoyow 漫遊朗島<br/>
+          <span class="text-teal-300">找回「出去玩」的純粹感動</span>
+        </h1>
+        <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-100 mb-10 leading-relaxed font-light">
+          深入蘭嶼最有禮貌的 Iraralay 部落，體驗道地食農與海洋智慧。<br class="hidden md:block">
+          為企業與旅人打造的永續旅程，立即預約開啟您的探索。
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 transition-all transform hover:scale-105">
+            立即預約
+          </a>
+          <a href="#about" class="inline-flex items-center justify-center px-8 py-3 border border-white/30 text-base font-medium rounded-md text-white bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all">
+            了解更多
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slogan -->
+    <section class="bg-teal-900 text-white py-20">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6">Meyyoyow 是一種生活態度</h2>
+        <p class="text-xl text-teal-100 max-w-3xl mx-auto">
+          在達悟語中，Meyyoyow 是「漫遊」、「出去玩」的意思。<br>
+          我們相信，最好的學習發生在玩樂之中，最深的感動來自於真實的生活體驗。
+        </p>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section-padding bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">關於我們</h2>
+          <p class="mt-4 text-xl text-gray-500">認識 Meyyoyow 與最有禮貌的 Iraralay</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-24">
+          <div>
+            <h3 class="text-2xl font-bold mb-6 text-teal-800">品牌故事</h3>
+            <p class="text-gray-600 mb-4 leading-relaxed">
+              Meyyoyow 在達悟語中意味著「漫遊」與「出去玩」。我們是一群熱愛土地的朗島青年與在地職人，希望透過深度的體驗設計，讓「玩」不僅僅是娛樂，更是一種理解文化的途徑。
+            </p>
+            <p class="text-gray-600 leading-relaxed">
+              我們拒絕走馬看花的觀光模式，堅持以尊重部落生活節奏的方式，帶領旅人走進我們的日常。在這裡，你是客人，也是朋友。
+            </p>
+          </div>
+          <div class="relative h-80 rounded-xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
+             <img src="https://picsum.photos/800/600?random=20" alt="Brand Story" class="object-cover w-full h-full">
+          </div>
+        </div>
+
+        <!-- Team -->
+        <h3 class="text-2xl font-bold text-center mb-12">核心團隊</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center group">
+            <div class="relative w-32 h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-teal-100 group-hover:border-teal-300 transition-colors">
+              <img src="https://picsum.photos/300/300?random=30" class="object-cover w-full h-full">
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">Si-Meyyoyow</h3>
+            <p class="text-sm text-teal-600 mb-2">創辦人 / 資深講師</p>
+          </div>
+          <div class="text-center group">
+            <div class="relative w-32 h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-teal-100 group-hover:border-teal-300 transition-colors">
+              <img src="https://picsum.photos/300/300?random=31" class="object-cover w-full h-full">
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">Si-Mahato</h3>
+            <p class="text-sm text-teal-600 mb-2">生態職人</p>
+          </div>
+          <div class="text-center group">
+            <div class="relative w-32 h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-teal-100 group-hover:border-teal-300 transition-colors">
+              <img src="https://picsum.photos/300/300?random=32" class="object-cover w-full h-full">
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">Sinan-Voz</h3>
+            <p class="text-sm text-teal-600 mb-2">食農教育總監</p>
+          </div>
+          <div class="text-center group">
+            <div class="relative w-32 h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-teal-100 group-hover:border-teal-300 transition-colors">
+              <img src="https://picsum.photos/300/300?random=33" class="object-cover w-full h-full">
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">Syaman-Wom</h3>
+            <p class="text-sm text-teal-600 mb-2">海洋嚮導</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="section-padding bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">體驗行程</h2>
+          <p class="mt-4 text-xl text-gray-500">核心產品：從食農、海洋到部落生活的深度沉浸</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex justify-center space-x-2 mb-12 overflow-x-auto py-2">
+          <button onclick="switchTab('tab-A')" id="btn-tab-A" class="tab-btn px-6 py-2 rounded-full text-sm font-bold transition-colors bg-teal-600 text-white shadow-md">食農與永續</button>
+          <button onclick="switchTab('tab-B')" id="btn-tab-B" class="tab-btn px-6 py-2 rounded-full text-sm font-bold transition-colors bg-white text-gray-600 hover:bg-gray-100">海洋與工藝</button>
+          <button onclick="switchTab('tab-C')" id="btn-tab-C" class="tab-btn px-6 py-2 rounded-full text-sm font-bold transition-colors bg-white text-gray-600 hover:bg-gray-100">部落生活沉浸</button>
+        </div>
+
+        <!-- Content A -->
+        <div id="tab-A" class="tab-content grid md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
+          <!-- Card 1 -->
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div class="relative h-48">
+              <img src="https://picsum.photos/500/300?random=41" class="object-cover w-full h-full">
+              <span class="absolute top-4 left-4 bg-white/90 text-teal-800 text-xs font-bold px-2 py-1 rounded">低碳飲食</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">無毒安便當</h3>
+              <p class="text-gray-600 text-sm mb-4">採集在地時令野菜，使用環保月桃葉包裹，製作零廢棄的美味便當。</p>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div class="relative h-48">
+              <img src="https://picsum.photos/500/300?random=42" class="object-cover w-full h-full">
+              <span class="absolute top-4 left-4 bg-white/90 text-teal-800 text-xs font-bold px-2 py-1 rounded">芋田體驗</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">女人的魚</h3>
+              <p class="text-gray-600 text-sm mb-4">換上裝備走入水芋田，體驗達悟女性照顧芋頭的辛勞與智慧。</p>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div class="relative h-48">
+              <img src="https://picsum.photos/500/300?random=43" class="object-cover w-full h-full">
+              <span class="absolute top-4 left-4 bg-white/90 text-teal-800 text-xs font-bold px-2 py-1 rounded">漁獵智慧</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">天才小釣手</h3>
+              <p class="text-gray-600 text-sm mb-4">在潮池邊學習辨識魚類，體驗傳統且永續的採集方式。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content B -->
+        <div id="tab-B" class="tab-content grid md:grid-cols-2 lg:grid-cols-3 gap-8 hidden fade-in">
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div class="relative h-48">
+              <img src="https://picsum.photos/500/300?random=44" class="object-cover w-full h-full">
+              <span class="absolute top-4 left-4 bg-white/90 text-teal-800 text-xs font-bold px-2 py-1 rounded">拼板舟文化</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">划向太平洋</h3>
+              <p class="text-gray-600 text-sm mb-4">親身操作拼板舟，感受與大海搏鬥的勇氣，認識船眼紋的意義。</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div class="relative h-48">
+              <img src="https://picsum.photos/500/300?random=45" class="object-cover w-full h-full">
+              <span class="absolute top-4 left-4 bg-white/90 text-teal-800 text-xs font-bold px-2 py-1 rounded">潮間帶採集</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">潮來潮往</h3>
+              <p class="text-gray-600 text-sm mb-4">夜間或退潮時分，探索潮間帶豐富的生態寶庫。</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div class="relative h-48">
+              <img src="https://picsum.photos/500/300?random=46" class="object-cover w-full h-full">
+              <span class="absolute top-4 left-4 bg-white/90 text-teal-800 text-xs font-bold px-2 py-1 rounded">造舟與林業</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">山林生態</h3>
+              <p class="text-gray-600 text-sm mb-4">走入山林尋找造舟木材，理解永續林業與生態平衡。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content C -->
+        <div id="tab-C" class="tab-content grid md:grid-cols-2 lg:grid-cols-3 gap-8 hidden fade-in">
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div class="relative h-48">
+              <img src="https://picsum.photos/500/300?random=47" class="object-cover w-full h-full">
+              <span class="absolute top-4 left-4 bg-white/90 text-teal-800 text-xs font-bold px-2 py-1 rounded">共食文化</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">作客人家</h3>
+              <p class="text-gray-600 text-sm mb-4">進入在地人家中，像家人一樣共進晚餐，交流彼此的故事。</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+            <div class="relative h-48">
+              <img src="https://picsum.photos/500/300?random=48" class="object-cover w-full h-full">
+              <span class="absolute top-4 left-4 bg-white/90 text-teal-800 text-xs font-bold px-2 py-1 rounded">歷史地景</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">部落巡禮</h3>
+              <p class="text-gray-600 text-sm mb-4">穿梭在地下屋與涼台之間，聆聽每一塊石頭的傳說故事。</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="section-padding bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">費用與方案</h2>
+          <p class="mt-4 text-xl text-gray-500">公開透明的價格，滿足不同團體的需求</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <!-- General -->
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 flex flex-col hover:border-teal-500 transition-colors">
+            <div class="p-8 flex-grow">
+              <h2 class="text-2xl font-bold text-gray-900">一般團體方案</h2>
+              <p class="mt-2 text-gray-500">適合家庭、朋友出遊 (4-10人)</p>
+              <div class="mt-8 mb-8">
+                <span class="text-4xl font-bold text-gray-900">NT$ 1,200</span>
+                <span class="text-gray-500"> / 每人起</span>
+              </div>
+              <ul class="space-y-4">
+                <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span><span>任選 1 項體驗行程</span></li>
+                <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span><span>專業在地導覽員解說</span></li>
+                <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span><span>包含活動保險與裝備</span></li>
+              </ul>
+            </div>
+            <div class="p-8 bg-gray-50 border-t border-gray-100">
+              <a href="#contact" class="block w-full text-center bg-teal-600 text-white font-medium py-3 rounded-md hover:bg-teal-700 transition">立即預約</a>
+            </div>
+          </div>
+
+          <!-- Enterprise -->
+          <div class="bg-teal-800 text-white rounded-2xl shadow-xl overflow-hidden flex flex-col relative transform md:-translate-y-4">
+            <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-bl-lg">熱門推薦</div>
+            <div class="p-8 flex-grow">
+              <h2 class="text-2xl font-bold">企業 / 學校 專案</h2>
+              <p class="mt-2 text-teal-200">適合員工旅遊、校外教學 (20人+)</p>
+              <div class="mt-8 mb-8">
+                <span class="text-4xl font-bold">客製化報價</span>
+              </div>
+              <ul class="space-y-4">
+                <li class="flex items-start"><span class="text-teal-300 mr-2">✓</span><span>量身打造 ESG 永續行程</span></li>
+                <li class="flex items-start"><span class="text-teal-300 mr-2">✓</span><span>團隊建立 (Team Building)</span></li>
+                <li class="flex items-start"><span class="text-teal-300 mr-2">✓</span><span>專屬引導師與精緻餐點</span></li>
+                <li class="flex items-start"><span class="text-teal-300 mr-2">✓</span><span>活動成果紀錄</span></li>
+              </ul>
+            </div>
+            <div class="p-8 bg-teal-900 border-t border-teal-700">
+              <a href="#contact" class="block w-full text-center bg-white text-teal-900 font-bold py-3 rounded-md hover:bg-gray-100 transition">專人諮詢</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section id="gallery" class="section-padding bg-gray-900 text-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-extrabold sm:text-4xl">影像紀實</h2>
+          <p class="mt-4 text-xl text-gray-400">紀錄每一個真實的感動瞬間</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+          <div class="col-span-2 row-span-2 relative rounded-lg overflow-hidden group">
+            <img src="https://picsum.photos/800/800?random=50" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+              <span class="font-bold">教育現場互動</span>
+            </div>
+          </div>
+          <div class="relative rounded-lg overflow-hidden group">
+            <img src="https://picsum.photos/400/400?random=51" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="relative rounded-lg overflow-hidden group">
+            <img src="https://picsum.photos/400/400?random=52" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="relative rounded-lg overflow-hidden group">
+             <img src="https://picsum.photos/400/400?random=53" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="relative rounded-lg overflow-hidden group">
+             <img src="https://picsum.photos/400/400?random=54" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section-padding bg-teal-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-12">預約與資訊</h2>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+          <!-- Info -->
+          <div class="lg:col-span-1 space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+              <h3 class="text-xl font-bold text-teal-800 mb-4">交通指引</h3>
+              <p class="text-gray-600 mb-2"><strong>集合地點：</strong><br>蘭嶼鄉朗島村活動中心前廣場</p>
+              <p class="text-gray-600 text-sm">建議騎乘機車前往，Google Map 搜尋「朗島活動中心」。</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm text-center">
+              <h3 class="text-xl font-bold text-teal-800 mb-4">加入官方 LINE</h3>
+              <button class="w-full bg-[#00C300] text-white font-bold py-3 rounded-md hover:bg-[#00b300] transition mb-2 shadow">
+                LINE ID: @meyyoyow
+              </button>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <div class="lg:col-span-2">
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+              <h3 class="text-2xl font-bold text-gray-800 mb-6">預約諮詢表單</h3>
+              <form class="space-y-6" onsubmit="event.preventDefault(); alert('感謝您的詢問！此為靜態展示，表單功能尚未串接後端。');">
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">聯絡人姓名</label>
+                    <input type="text" required class="w-full rounded-md border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 p-2">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">聯絡電話</label>
+                    <input type="tel" required class="w-full rounded-md border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 p-2">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input type="email" required class="w-full rounded-md border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 p-2">
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">預計日期</label>
+                    <input type="date" class="w-full rounded-md border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 p-2">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">預計人數</label>
+                    <input type="number" class="w-full rounded-md border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 p-2">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">需求說明</label>
+                  <textarea rows="4" class="w-full rounded-md border border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 p-2"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-teal-600 text-white font-bold py-3 rounded-md hover:bg-teal-700 transition shadow-lg">送出詢問</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="col-span-1 md:col-span-1">
+        <h3 class="text-2xl font-bold mb-4">Meyyoyow</h3>
+        <p class="text-gray-400 text-sm">
+          漫遊朗島，體驗最純粹的蘭嶼生活。<br>
+          從食農、海洋到部落文化，<br>
+          我們帶您看見不一樣的 Iraralay。
+        </p>
+      </div>
+      
+      <div>
+        <h4 class="text-lg font-semibold mb-4 text-teal-400">快速連結</h4>
+        <ul class="space-y-2 text-sm text-gray-300">
+          <li><a href="#about" class="hover:text-white transition">關於我們</a></li>
+          <li><a href="#services" class="hover:text-white transition">體驗行程</a></li>
+          <li><a href="#pricing" class="hover:text-white transition">費用與方案</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-semibold mb-4 text-teal-400">聯絡資訊</h4>
+        <ul class="space-y-2 text-sm text-gray-300">
+          <li>台東縣蘭嶼鄉朗島村</li>
+          <li>meyyoyow@example.com</li>
+          <li>Line ID: @meyyoyow</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg font-semibold mb-4 text-teal-400">追蹤我們</h4>
+        <div class="flex space-x-4">
+          <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-teal-600 transition cursor-pointer">FB</div>
+          <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-teal-600 transition cursor-pointer">IG</div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
+      &copy; 2024 Meyyoyow 漫遊朗島. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Basic Interactivity Scripts -->
+  <script>
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Tabs Switcher
+    function switchTab(tabId) {
+      // Hide all contents
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('grid'); // remove grid display
+      });
+      
+      // Show selected (add grid back)
+      const selected = document.getElementById(tabId);
+      selected.classList.remove('hidden');
+      selected.classList.add('grid');
+      
+      // Update buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-teal-600', 'text-white', 'shadow-md');
+        btn.classList.add('bg-white', 'text-gray-600', 'hover:bg-gray-100');
+      });
+      
+      const activeBtn = document.getElementById('btn-' + tabId);
+      activeBtn.classList.remove('bg-white', 'text-gray-600', 'hover:bg-gray-100');
+      activeBtn.classList.add('bg-teal-600', 'text-white', 'shadow-md');
+    }
+  </script>
+</body>
+</html>
